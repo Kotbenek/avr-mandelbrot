@@ -1,9 +1,9 @@
 .define	RST_PORT	PORTB
-.define	RST		(1 << PB0)
+.define	RST		PB0
 .define	DC_PORT		PORTB
-.define	DC		(1 << PB1)
+.define	DC		PB1
 .define	SS_PORT		PORTB
-.define	SS		(1 << PB2)
+.define	SS		PB2
 
 LCD_init:
 	push	r16
@@ -12,18 +12,10 @@ LCD_init:
 	push	r25
 
 	; Reset LCD
-	in	r16,		RST_PORT
-	ldi	r17,		~RST
-	and	r16,		r17
-	out	RST_PORT,	r16
-
+	cbi	RST_PORT,	RST
 	ldi	r16,		1
 	rcall	DELAY
-
-	in	r16,		RST_PORT
-	ldi	r17,		RST
-	or	r16,		r17
-	out	RST_PORT,	r16
+	sbi	RST_PORT,	RST
 
 	; Enter extended commands mode
 	ldi	r16,		0x21
@@ -71,31 +63,19 @@ LCD_write:
 	push	r18
 	push	r19
 
-	in	r18,		SS_PORT
-	ldi	r19,		~SS
-	and	r18,		r19
-	out	SS_PORT,	r18
+	cbi	SS_PORT,	SS
 
 	cpi	r17,		1
 	brne	__LCD_write_not_cmd
 __LCD_write_cmd:
-	in	r18,		DC_PORT
-	ldi	r19,		~DC
-	and	r18,		r19
-	out	DC_PORT,	r18
+	cbi	DC_PORT,	DC
 	rjmp	__LCD_write_is_cmd_end
 __LCD_write_not_cmd:
-	in	r18,		DC_PORT
-	ldi	r19,		DC
-	or	r18,		r19
-	out	DC_PORT,	r18
+	sbi	DC_PORT,	DC
 __LCD_write_is_cmd_end:
 	rcall	SPI_transmit
 
-	in	r18,		SS_PORT
-	ldi	r19,		SS
-	or	r18,		r19
-	out	SS_PORT,	r18
+	sbi	SS_PORT,	SS
 
 	pop	r19
 	pop	r18
