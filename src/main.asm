@@ -35,8 +35,17 @@ START:
 	ldi	r16,	low(RAMEND)
 	out	SPL,	r16
 ; Initialize IO
+	ldi	r16,	0b00101111
+	out	DDRB,	r16
 	ldi	r16,	0b10000000
 	out	DDRD,	r16
+; Initialize SPI
+	rcall	SPI_init
+; Initialize LCD
+	rcall	LCD_init
+; Test write to LCD
+	rcall	LCD_test
+
 ; Blink LED
 LOOP:
 	ldi	r16,	0b10000000
@@ -48,4 +57,6 @@ LOOP:
 	rjmp	LOOP
 
 .include	"delay.asm"
+.include	"lcd.asm"
+.include	"spi.asm"
 
