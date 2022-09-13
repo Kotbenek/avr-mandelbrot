@@ -81,6 +81,41 @@ __LCD_write_is_cmd_end:
 	pop	r18
 	ret
 
+LCD_write_buffer:
+	push	r16
+	push	r17
+	push	r28
+	push	r29
+	push	r30
+	push	r31
+
+	ldi	r16,		0x80
+	ldi	r17,		1
+	rcall	LCD_write
+	ldi	r16,		0x40
+	rcall	LCD_write
+
+	ldi	r17,		0
+	ldi	r29,		HIGH(504)
+	ldi	r28,		LOW(504)
+
+	ldi	r31,		HIGH(lcd_buffer)
+	ldi	r30,		LOW(lcd_buffer)
+
+__LCD_write_buffer_loop:
+	ld	r16,		Z+
+	rcall	LCD_write
+	sbiw	r28,		1
+	brne	__LCD_write_buffer_loop
+
+	pop	r31
+	pop	r30
+	pop	r29
+	pop	r28
+	pop	r17
+	pop	r16
+	ret
+
 LCD_set_pixel:
 	; Input: r16 - x, r17 - y, r18 - on(1)/off(0)
 	push	r24
@@ -140,6 +175,32 @@ __LCD_set_pixel_set_end:
 	pop	r28
 	pop	r25
 	pop	r24
+	ret
+
+LCD_clear_buffer:
+	push	r16
+	push	r24
+	push	r25
+	push	r30
+	push	r31
+
+	ldi	r31,		HIGH(lcd_buffer)
+	ldi	r30,		LOW(lcd_buffer)
+
+	ldi	r25,		HIGH(504)
+	ldi	r24,		LOW(504)
+
+	ldi	r16,		0
+__LCD_clear_buffer_loop:
+	st	Z+,		r16
+	sbiw	r24,		1
+	brne	__LCD_clear_buffer_loop
+
+	pop	r31
+	pop	r30
+	pop	r25
+	pop	r24
+	pop	r16
 	ret
 
 LCD_test:
