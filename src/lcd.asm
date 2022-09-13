@@ -230,3 +230,25 @@ __LCD_test_loop:
 	pop	r16
 	ret
 
+LCD_test_set_pixel:
+	push	r16
+	push	r17
+	push	r18
+	push	r19
+
+	ldi	r19,		48
+	ldi	r18,		1
+	ldi	r16,		0
+	ldi	r17,		0
+__LCD_test_set_pixel_loop:
+	rcall	LCD_set_pixel
+	inc	r16
+	inc	r17
+	dec	r19
+	brne	__LCD_test_set_pixel_loop
+
+	pop	r19
+	pop	r18
+	pop	r17
+	pop	r16
+	ret

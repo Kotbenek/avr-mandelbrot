@@ -47,7 +47,9 @@ START:
 ; Initialize LCD
 	rcall	LCD_init
 ; Test write to LCD
-	rcall	LCD_test
+	rcall	LCD_clear_buffer
+	rcall	LCD_test_set_pixel
+	rcall	LCD_write_buffer
 
 ; Blink LED
 LOOP:
