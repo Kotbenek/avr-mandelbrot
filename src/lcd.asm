@@ -81,6 +81,67 @@ __LCD_write_is_cmd_end:
 	pop	r18
 	ret
 
+LCD_set_pixel:
+	; Input: r16 - x, r17 - y, r18 - on(1)/off(0)
+	push	r24
+	push	r25
+	push	r28
+	push	r29
+	push	r30
+	push	r31
+
+	; Get pixel from buffer
+	ldi	r31,		HIGH(lcd_buffer)
+	ldi	r30,		LOW(lcd_buffer)
+
+	; Index: (y >> 3) * 84 + x
+	mov	r28,		r17
+	lsr	r28
+	lsr	r28
+	lsr	r28
+	ldi	r29,		84
+	mul	r28,		r29
+	movw	r28,		r0
+	add	r28,		r16
+	ldi	r24,		0
+	adc	r29,		r24
+
+	add	r30,		r28
+	adc	r31,		r29
+
+	ld	r24,		Z
+
+	; Set pixel
+	; (y & 0x07)
+	mov	r25,		r17
+	andi	r25,		0x07
+	ldi	r28,		1
+	tst	r25
+	breq	__LCD_set_pixel_loop_end
+__LCD_set_pixel_loop:
+	lsl	r28
+	dec	r25
+	brne	__LCD_set_pixel_loop
+__LCD_set_pixel_loop_end:
+	cpi	r18,		1
+	breq	__LCD_set_pixel_set
+	com	r28
+	and	r24,		r28
+	rjmp	__LCD_set_pixel_set_end
+__LCD_set_pixel_set:
+	or	r24,		r28
+__LCD_set_pixel_set_end:
+	; Store pixel in buffer
+	st	Z,		r24
+
+	pop	r31
+	pop	r30
+	pop	r29
+	pop	r28
+	pop	r25
+	pop	r24
+	ret
+
 LCD_test:
 	push	r16
 	push	r17

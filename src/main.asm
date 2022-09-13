@@ -2,6 +2,9 @@
 	.include	"m8def.inc"
 .list
 
+.dseg
+	lcd_buffer:	.byte	504
+
 .cseg
 .org 0
 RESET:
