@@ -45,8 +45,8 @@ LCD_init:
 
 	ldi	r16,		0
 	ldi	r17,		0
-	ldi	r25,		HIGH(504)
-	ldi	r24,		LOW(504)
+	ldi	r25,		HIGH(lcd_buffer_size)
+	ldi	r24,		LOW(lcd_buffer_size)
 __LCD_init_clear_RAM_loop:
 	rcall	LCD_write
 	sbiw	r24,		1
@@ -96,8 +96,8 @@ LCD_write_buffer:
 	rcall	LCD_write
 
 	ldi	r17,		0
-	ldi	r29,		HIGH(504)
-	ldi	r28,		LOW(504)
+	ldi	r29,		HIGH(lcd_buffer_size)
+	ldi	r28,		LOW(lcd_buffer_size)
 
 	ldi	r31,		HIGH(lcd_buffer)
 	ldi	r30,		LOW(lcd_buffer)
@@ -187,8 +187,8 @@ LCD_clear_buffer:
 	ldi	r31,		HIGH(lcd_buffer)
 	ldi	r30,		LOW(lcd_buffer)
 
-	ldi	r25,		HIGH(504)
-	ldi	r24,		LOW(504)
+	ldi	r25,		HIGH(lcd_buffer_size)
+	ldi	r24,		LOW(lcd_buffer_size)
 
 	ldi	r16,		0
 __LCD_clear_buffer_loop:
@@ -217,8 +217,8 @@ LCD_test:
 
 	ldi	r16,		0xFF
 	ldi	r17,		0
-	ldi	r25,		HIGH(504)
-	ldi	r24,		LOW(504)
+	ldi	r25,		HIGH(lcd_buffer_size)
+	ldi	r24,		LOW(lcd_buffer_size)
 __LCD_test_loop:
 	rcall	LCD_write
 	sbiw	r24,		1

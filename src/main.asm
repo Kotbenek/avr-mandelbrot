@@ -3,7 +3,8 @@
 .list
 
 .dseg
-	lcd_buffer:	.byte	504
+	.define	lcd_buffer_size	504
+	lcd_buffer:	.byte	lcd_buffer_size
 
 .cseg
 .org 0
