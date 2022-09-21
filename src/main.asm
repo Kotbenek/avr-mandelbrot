@@ -49,7 +49,7 @@ START:
 	rcall	LCD_init
 ; Test write to LCD
 	rcall	LCD_clear_buffer
-	rcall	LCD_test_set_pixel
+	rcall	mandelbrot
 	rcall	LCD_write_buffer
 
 ; Blink LED
@@ -65,4 +65,6 @@ LOOP:
 .include	"delay.asm"
 .include	"lcd.asm"
 .include	"spi.asm"
+.include	"fixed_point.asm"
+.include	"mandelbrot.asm"
 
