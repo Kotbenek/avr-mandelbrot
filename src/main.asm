@@ -41,8 +41,6 @@ START:
 ; Initialize IO
 	ldi	r16,	0b00101111
 	out	DDRB,	r16
-	ldi	r16,	0b10000000
-	out	DDRD,	r16
 ; Initialize SPI
 	rcall	SPI_init
 ; Initialize LCD
@@ -52,14 +50,7 @@ START:
 	rcall	mandelbrot
 	rcall	LCD_write_buffer
 
-; Blink LED
 LOOP:
-	ldi	r16,	0b10000000
-	in	r17,	PORTD
-	eor	r17,	r16
-	out	PORTD,	r17
-	ldi	r16,	0x10
-	rcall	DELAY
 	rjmp	LOOP
 
 .include	"delay.asm"
