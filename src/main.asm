@@ -45,7 +45,7 @@ START:
 	rcall	SPI_init
 ; Initialize LCD
 	rcall	LCD_init
-; Test write to LCD
+; Write to LCD
 	rcall	LCD_clear_buffer
 	rcall	mandelbrot
 	rcall	LCD_write_buffer
