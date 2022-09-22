@@ -36,8 +36,7 @@ FP_mul:
 	lsr	r22
 	lsr	r22
 	lsr	r22
-	ldi	r26,	1
-	and	r22,	r26
+	andi	r22,	1
 
 	; Move to Z
 
@@ -47,26 +46,22 @@ FP_mul:
 	; r23(7:4) -> r20(3:0)
 	mov	r20,	r23
 	swap	r20
-	ldi	r26,	0x0F
-	and	r20,	r26
+	andi	r20,	0x0F
 
 	; r24(3:0) -> r20(7:4)
 	mov	r23,	r24
 	swap	r23
-	ldi	r26,	0xF0
-	and	r23,	r26
+	andi	r23,	0xF0
 	or	r20,	r23
 
 	; r24(7:4) -> r21(3:0)
 	swap	r24
-	ldi	r26,	0x0F
-	and	r24,	r26
+	andi	r24,	0x0F
 	or	r21,	r24
 
 	; r25(3:0) -> r21(7:4)
 	swap	r25
-	ldi	r26,	0xF0
-	and	r25,	r26
+	andi	r25,	0xF0
 	or	r21,	r25
 
 	; Add rounding bit
@@ -117,7 +112,6 @@ FP_mul_8_8:
 	push	r23
 	push	r24
 	push	r25
-	push	r26
 
 	; Calculate X * Y in r25:r24:r23:r22
 	rcall	MUL_16
@@ -130,8 +124,7 @@ FP_mul_8_8:
 	lsr	r22
 	lsr	r22
 	lsr	r22
-	ldi	r26,	1
-	and	r22,	r26
+	andi	r22,	1
 
 	; Move to Z
 	mov	r20,	r23
@@ -142,7 +135,6 @@ FP_mul_8_8:
 	ldi	r25,	0
 	adc	r21,	r25
 
-	pop	r26
 	pop	r25
 	pop	r24
 	pop	r23
@@ -162,6 +154,7 @@ MUL_16:
 	;              (YS * XH) << 24 +
 	;              (YS * XL) << 24
 
+	push	r26
 	push	r27
 	push	r28
 	
@@ -243,5 +236,6 @@ __MUL_16_YS_end:
 
 	pop	r28
 	pop	r27
+	pop	r26
 	ret
 
