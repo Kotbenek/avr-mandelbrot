@@ -6,7 +6,7 @@ A small, fractal-involving project created in AVR assembly
 
 **MCU**: ATmega8 with 8 MHz internal RC clock  
 **LCD**: 84x48 px screen with PCD8544 driver  
-**Language**: Written purely in **AVR assembly**  
+**Language**: Pure **AVR assembly**  
 **Non-integer operations**: Calculations are performed on 16-bit fixed-point numbers, in 4.12 and 8.8 formats
 
 ## Build output
