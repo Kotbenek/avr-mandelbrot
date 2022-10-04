@@ -1,22 +1,30 @@
-; Step in x: 4 / 83
-; 0000.0000 1100 0101
-.define	inc_xh	0x00
-.define	inc_xl	0xC5
+; Step in X: 2.5 / 83
+; 0000.0000 0111 1011
+.define	inc_xh		0x00
+.define	inc_xl		0x7B
 
-; Step in y: 4 / 47
-; 0000.0001 0101 1100
-.define	inc_yh	0x01
-.define	inc_yl	0x5C
+; Step in Y: 2.32 / 47
+; 0000.0000 1100 1010
+.define	inc_yh		0x00
+.define	inc_yl		0xCA
 
-; Starting point: -2
+; Starting point X: -2
 ; 1110.0000 0000 0000
-.define	start_h	0xE0
-.define	start_l	0x00
+.define	start_xh	0xE0
+.define	start_xl	0x00
+
+; Starting point Y: -1.16
+; 1110.1101 0111 0000
+.define	start_yh	0xED
+.define	start_yl	0x70
+
+; Ending point X: 0.5
+; Ending point Y: 1.16
 
 ; Max |z|: 4
 ; 0000 0100.0000 0000
-.define	max_z_h	0x04
-.define	max_z_l	0x00
+.define	max_z_h		0x04
+.define	max_z_l		0x00
 
 mandelbrot_approximate_point:
 	; Input: r16 - RL, r17 - RH, r18 - IL, r19 - IH
@@ -218,10 +226,10 @@ mandelbrot:
 	push	r21
 	push	r22
 
-	ldi	r17,	start_h
-	ldi	r16,	start_l
-	ldi	r19,	start_h
-	ldi	r18,	start_l
+	ldi	r17,	start_xh
+	ldi	r16,	start_xl
+	ldi	r19,	start_yh
+	ldi	r18,	start_yl
 
 	; r21 - X
 	; r22 - Y
@@ -269,8 +277,8 @@ __mandelbrot_0_1_end:
 	brne	__mandelbrot_loop
 
 	ldi	r22,	0
-	ldi	r19,	start_h
-	ldi	r18,	start_l
+	ldi	r19,	start_yh
+	ldi	r18,	start_yl
 	inc	r21
 
 	push	r18
