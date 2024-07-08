@@ -14,11 +14,11 @@ A small, fractal-involving project created in AVR assembly
 ```
 Used memory blocks:
    Data      :  Start = 0x0060, End = 0x0257, Length = 0x01F8
-   Code      :  Start = 0x0000, End = 0x022D, Length = 0x022E
+   Code      :  Start = 0x0000, End = 0x0206, Length = 0x0207
 
 Assembly complete with no errors.
 Segment usage:
-   Code      :       558 words (1116 bytes)
+   Code      :       519 words (1038 bytes)
    Data      :       504 bytes
    EEPROM    :         0 bytes
 ```
