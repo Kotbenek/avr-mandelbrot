@@ -89,7 +89,7 @@ FP_4_12_to_8_8:
 	swap	r18
 	andi	r18,	0x0F
 	mov	r17,	r18
-	
+
 	andi	r18,	0x08
 	cpi	r18,	0x08
 	brne	__FP_4_12_to_8_8_end
@@ -157,7 +157,7 @@ MUL_16:
 	push	r26
 	push	r27
 	push	r28
-	
+
 	; Store extended sign
 	; XS - r27
 	; YS - r28
