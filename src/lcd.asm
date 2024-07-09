@@ -6,11 +6,6 @@
 .define	SS		PB2
 
 LCD_init:
-	push	r16
-	push	r17
-	push	r24
-	push	r25
-
 	; Reset LCD
 	cbi	RST_PORT,	RST
 	ldi	r16,		1
@@ -51,11 +46,6 @@ __LCD_init_clear_RAM_loop:
 	rcall	LCD_write
 	sbiw	r24,		1
 	brne	__LCD_init_clear_RAM_loop
-
-	pop	r25
-	pop	r24
-	pop	r17
-	pop	r16
 	ret
 
 LCD_write:
