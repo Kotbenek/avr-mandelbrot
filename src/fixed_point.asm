@@ -117,13 +117,8 @@ FP_mul_8_8:
 	rcall	MUL_16
 
 	; Save rounding bit in r22
-	lsr	r22
-	lsr	r22
-	lsr	r22
-	lsr	r22
-	lsr	r22
-	lsr	r22
-	lsr	r22
+	rol	r22
+	rol	r22
 	andi	r22,	1
 
 	; Move to Z
