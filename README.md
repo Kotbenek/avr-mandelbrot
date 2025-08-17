@@ -1,3 +1,8 @@
+# Moved to Codeberg
+
+This repository was moved to Codeberg:
+https://codeberg.org/Kotbenek/avr-mandelbrot
+
 # avr-mandelbrot
 
 A small, fractal-involving project created in AVR assembly
